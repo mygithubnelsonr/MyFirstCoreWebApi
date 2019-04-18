@@ -14,6 +14,7 @@ namespace MyFirstCoreWebApi.Controllers
     {
         // GET: api/<controller>
         [HttpGet]
+        [Produces("application/json")]
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2", "value3" };
@@ -21,19 +22,23 @@ namespace MyFirstCoreWebApi.Controllers
 
         // GET api/<controller>/5
         [HttpGet("{id}")]
-        public string Get([FromQuery] int id, string query)
+        public IActionResult Get(int id, string query)
         {
-            return $"value={id} query={query}";
+            return Ok(new Value { Id = id, Text = "Value" + id });
         }
 
         // POST api/<controller>
         [HttpPost]
-        public void Post([FromBody]Value value)
+        public IActionResult Post([FromBody]Value value)
         {
             if(!ModelState.IsValid)
             {
-                throw new InvalidOperationException("invalid");
+                return BadRequest(ModelState);
             }
+
+            // do some like save the value to the Database 
+
+            return CreatedAtAction("Get", new { id = value.Id }, value);
 
         }
 
