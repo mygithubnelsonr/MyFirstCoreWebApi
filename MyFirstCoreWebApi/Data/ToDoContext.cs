@@ -13,6 +13,11 @@ namespace MyFirstCoreWebApi.Data
 
         }
 
+        public ToDoContext()
+        {
+
+        }
+
         public DbSet<ToDo> Todos { get; set; }
 
     }

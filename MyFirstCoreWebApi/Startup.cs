@@ -8,16 +8,25 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using MyFirstCoreWebApi.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace MyFirstCoreWebApi
 {
     public class Startup
     {
+        public IConfiguration Configurtation { get; }
+
+        public Startup(IConfiguration configuration)
+        {
+            Configurtation = configuration;
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ToDoContext>();
+            //services.AddDbContext<ToDoContext>(options => options.UseSqlServer(Configurtation.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ToDoContext>(options => options.UseInMemoryDatabase("TodoDb"));
 
             services.AddMvc()
                 .AddXmlDataContractSerializerFormatters();

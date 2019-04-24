@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace MyFirstCoreWebApi.Data
 {
-    public class ToDo
+    public class Test
     {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public bool IsDone { get; set; }
+        ToDoContext context = new ToDoContext();
+
+        //var t = context.Todos;
+
     }
 }
